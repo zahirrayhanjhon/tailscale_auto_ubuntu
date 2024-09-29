@@ -46,11 +46,6 @@ echo -e "\e[34mInstalling Tailscale...\e[0m"
 curl -fsSL https://tailscale.com/install.sh | sh & spinner 34 "Installing Tailscale"
 sleep 1  # Wait for 1 second
 
-# Start Tailscale daemon
-echo -e "\e[33mStarting Tailscale daemon...\e[0m"
-sudo tailscaled --state=/var/lib/tailscale/tailscaled.state & spinner 33 "Starting Tailscale daemon"
-sleep 1  # Wait for 1 second
-
 # Install Netbird
 echo -e "\e[32mInstalling Netbird...\e[0m"
 curl -fsSL https://pkgs.netbird.io/install.sh | sh & spinner 32 "Installing Netbird"
