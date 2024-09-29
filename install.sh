@@ -34,6 +34,7 @@ sleep 1  # Wait for 1 seconds
 
 # Bring up Tailscale
 sudo tailscale up
+sleep 3  # Wait for 3 seconds
 
 # Bring up Netbird
 sudo netbird up
