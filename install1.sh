@@ -1,91 +1,87 @@
 #!/bin/bash
 
-# Function to display colored messages
-print_color() {
+# Function to display colored animation (spinner) for major steps
+spinner() {
+    local pid=$!
+    local delay=0.1
+    local spinstr='|/-\'
     local color=$1
-    local message=$2
-    echo -e "\e[${color}m${message}\e[0m"
-}
-
-# Function to add sleep with a spinner
-spinner_sleep() {
-    local seconds=$1
-    local message=$2
-    local color=$3
     tput civis  # Hide cursor
-    for ((i=0; i<$seconds; i++)); do
-        printf "\e[%sm [%c] %s\r" "$color" "${SPIN:$i%${#SPIN}:1}" "$message"
-        sleep 1
+    while [ "$(ps a | awk '{print $1}' | grep "$pid")" ]; do
+        local temp=${spinstr#?}
+        printf "\e[%sm [%c]  %s\r" "$color" "$spinstr" "$2"
+        spinstr=$temp${spinstr%"$temp"}
+        sleep $delay
     done
     tput cnorm  # Restore cursor
-    echo -e "\e[${color}m${message}... Done!\e[0m"
 }
 
-SPIN='|/-\'
-
 # Update the package list
-print_color 34 "Updating package list..."
-apt update > /dev/null 2>&1 &
-spinner_sleep 3 "Updating package list" 34
+echo -e "\e[34mUpdating package list...\e[0m"
+apt update & spinner 34 "Updating package list"
+sleep 1  # Wait for 1 second
 
 # Upgrade the installed packages
-print_color 33 "Upgrading installed packages..."
-apt upgrade -y > /dev/null 2>&1 &
-spinner_sleep 3 "Upgrading installed packages" 33
+echo -e "\e[33mUpgrading installed packages...\e[0m"
+apt upgrade -y & spinner 33 "Upgrading installed packages"
+sleep 1  # Wait for 1 second
 
 # Install sudo and curl
-print_color 32 "Installing sudo and curl..."
-apt install -y sudo curl > /dev/null 2>&1 &
-spinner_sleep 3 "Installing sudo and curl" 32
+echo -e "\e[32mInstalling sudo and curl...\e[0m"
+apt install -y sudo curl & spinner 32 "Installing sudo and curl"
+sleep 1  # Wait for 1 second
 
 # Enable IPv4 forwarding
-print_color 36 "Enabling IPv4 forwarding..."
-sudo sysctl -w net.ipv4.ip_forward=1 > /dev/null 2>&1 &
-spinner_sleep 3 "Enabling IPv4 forwarding" 36
+echo -e "\e[36mEnabling IPv4 forwarding...\e[0m"
+sudo sysctl -w net.ipv4.ip_forward=1 & spinner 36 "Enabling IPv4 forwarding"
+sleep 1  # Wait for 1 second
 
 # Enable IPv6 forwarding
-print_color 35 "Enabling IPv6 forwarding..."
-sudo sysctl -w net.ipv6.conf.all.forwarding=1 > /dev/null 2>&1 &
-spinner_sleep 3 "Enabling IPv6 forwarding" 35
+echo -e "\e[35mEnabling IPv6 forwarding...\e[0m"
+sudo sysctl -w net.ipv6.conf.all.forwarding=1 & spinner 35 "Enabling IPv6 forwarding"
+sleep 1  # Wait for 1 second
 
 # Install Tailscale
-print_color 34 "Installing Tailscale..."
-curl -fsSL https://tailscale.com/install.sh | sh > /dev/null 2>&1 &
-spinner_sleep 3 "Installing Tailscale" 34
+echo -e "\e[34mInstalling Tailscale...\e[0m"
+curl -fsSL https://tailscale.com/install.sh | sh & spinner 34 "Installing Tailscale"
+sleep 1  # Wait for 1 second
 
 # Start Tailscale daemon
-print_color 33 "Starting Tailscale daemon..."
-sudo tailscaled --state=/var/lib/tailscale/tailscaled.state > /dev/null 2>&1 &
-spinner_sleep 5 "Starting Tailscale daemon" 33
+echo -e "\e[33mStarting Tailscale daemon...\e[0m"
+sudo tailscaled --state=/var/lib/tailscale/tailscaled.state & spinner 33 "Starting Tailscale daemon"
+sleep 5  # Wait for 5 seconds
 
 # Install Netbird
-print_color 32 "Installing Netbird..."
-curl -fsSL https://pkgs.netbird.io/install.sh | sh > /dev/null 2>&1 &
-spinner_sleep 3 "Installing Netbird" 32
+echo -e "\e[32mInstalling Netbird...\e[0m"
+curl -fsSL https://pkgs.netbird.io/install.sh | sh & spinner 32 "Installing Netbird"
+sleep 1  # Wait for 1 second
 
 # Ask to initiate Tailscale
-print_color 36 "Do you want to bring up Tailscale? (y/n)"
+echo -e "\e[36mDo you want to bring up Tailscale? (y/n)\e[0m"
 read -r tailscale_choice
 if [[ "$tailscale_choice" == "y" ]]; then
-    print_color 34 "Bringing up Tailscale..."
-    sudo tailscale up > /dev/null 2>&1 &
-    spinner_sleep 6 "Bringing up Tailscale" 34
-    print_color 32 "Tailscale is up!"
+    echo -e "\e[34mBringing up Tailscale...\e[0m"
+    sudo tailscale up & spinner 34 "Bringing up Tailscale"
+    sleep 6  # Wait for 6 seconds
+    echo -e "\e[32mTailscale is up!\e[0m"
 else
-    print_color 31 "Skipped bringing up Tailscale."
+    echo -e "\e[31mSkipped bringing up Tailscale.\e[0m"
 fi
 
 # Ask to initiate Netbird
-print_color 36 "Do you want to bring up Netbird? (y/n)"
+echo -e "\e[36mDo you want to bring up Netbird? (y/n)\e[0m"
 read -r netbird_choice
 if [[ "$netbird_choice" == "y" ]]; then
-    print_color 34 "Bringing up Netbird..."
-    sudo netbird up > /dev/null 2>&1 &
-    spinner_sleep 6 "Bringing up Netbird" 34
-    print_color 32 "Netbird is up!"
+    echo -e "\e[34mBringing up Netbird...\e[0m"
+    sudo netbird up & spinner 34 "Bringing up Netbird"
+    sleep 15  # Wait for 15 seconds to copy Netbird login command
+    echo -e "\e[32mNetbird is up!\e[0m"
 else
-    print_color 31 "Skipped bringing up Netbird."
+    echo -e "\e[31mSkipped bringing up Netbird.\e[0m"
 fi
+
+# Final message with colored output
+echo -e "\e[32mAll steps completed successfully!\e[0m"
 
 # Final message and reset color
 print_color 32 "All steps completed successfully!"
