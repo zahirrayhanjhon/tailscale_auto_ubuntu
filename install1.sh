@@ -75,3 +75,4 @@ echo -e "${WHITE}To connect using Tailscale, run: ${GOLD}sudo tailscale up${NC}"
 echo -e "${WHITE}To connect using Netbird, run: ${GOLD}sudo netbird up${NC}"
 sleep 1  # Wait for 1 seconds
 for i in {1..4}; do echo ""; done
+sleep 1  # Wait for 1 seconds
