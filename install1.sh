@@ -71,9 +71,7 @@ for i in {1..3}; do echo ""; done
 sleep 1  # Wait for 1 seconds
 
 # Print ZRAYHAN in large text using asterisks and some emojis
-
 echo -e " "
-# Printing the ASCII art using echo
 echo -e "@@@@@@@@  @@@@@@@    @@@@@@   @@@ @@@  @@@  @@@   @@@@@@   @@@  @@@  "
 echo -e "@@@@@@@@  @@@@@@@@  @@@@@@@@  @@@ @@@  @@@  @@@  @@@@@@@@  @@@@ @@@  "
 echo -e "     @@!  @@!  @@@  @@!  @@@  @@! !@@  @@!  @@@  @@!  @@@  @@!@!@@@  "
@@ -85,6 +83,7 @@ echo -e ":!:       :!:  !:!  :!:  !:!    :!:    :!:  !:!  :!:  !:!  :!:  !:!  "
 echo -e " :: ::::  ::   :::  ::   :::     ::    ::   :::  ::   :::   ::   ::  "
 echo -e ": :: : :   :   : :   :   : :     :      :   : :   :   : :  ::    :   "
 echo -e " "
+sleep 1  # Wait for 1 seconds
 for i in {1..3}; do echo ""; done
 sleep 1  # Wait for 1 seconds
 
