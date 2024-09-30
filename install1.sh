@@ -71,7 +71,7 @@ for i in {1..10}; do echo ""; done
 sleep 5  # Wait for 5 seconds
 
 # Print ZRAYHAN in large text using asterisks and some emojis
-echo -e "${GOLD}"
+
 echo -e " "
 echo -e "███████ ██████   █████  ██    ██ ██   ██  █████  ███    ██ "
 echo -e "   ███  ██   ██ ██   ██  ██  ██  ██   ██ ██   ██ ████   ██ "
@@ -79,7 +79,7 @@ echo -e "  ███   ██████  ███████   ████ 
 echo -e " ███    ██   ██ ██   ██    ██    ██   ██ ██   ██ ██  ██ ██ "
 echo -e "███████ ██   ██ ██   ██    ██    ██   ██ ██   ██ ██   ████ "
 echo -e " "
-echo -e "${NC}"
+
 
 # Instructions to run Tailscale and Netbird
 echo -e "${WHITE}To connect using Tailscale, run: ${GOLD}sudo tailscale up${NC}"
