@@ -66,7 +66,9 @@ WHITE='\033[0;37m'  # White color for normal text
 GOLD='\033[1;33m'   # Golden/yellow color for the commands
 NC='\033[0m'        # No Color (reset)
 
+sleep 1  # Wait for 1 seconds
 for i in {1..10}; do echo ""; done
+sleep 5  # Wait for 5 seconds
 
 # Instructions to run Tailscale and Netbird
 echo -e "${WHITE}To connect using Tailscale, run: ${GOLD}sudo tailscale up${NC}"
