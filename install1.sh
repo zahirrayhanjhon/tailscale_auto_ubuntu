@@ -72,6 +72,7 @@ sleep 5  # Wait for 5 seconds
 
 # Print ZRAYHAN in large text using asterisks and some emojis
 echo -e "${GOLD}"
+echo -e " "
 echo -e " _______  _______  _______                    _______  _       "
 echo -e "/ ___   )(  ____ )(  ___  )|\\     /||\\     /|(  ___  )( (    /|"
 echo -e "\\/   )  || (    )|| (   ) |( \\   / )| )   ( || (   ) ||  \\  ( |"
@@ -81,6 +82,7 @@ echo -e "  /   /  | (\\ (   | (   ) |   ) (   | (   ) || (   ) || | \\   |"
 echo -e " /   (_/\\| ) \\ \\__| )   ( |   | |   | )   ( || )   ( || )  \\  |"
 echo -e "(_______/|/   \\__/|/     \\|   \\_/   |/     \\||/     \\||/    )_)"
 echo -e "                                                                "
+echo -e " "
 echo -e "${NC}"
 
 # Instructions to run Tailscale and Netbird
