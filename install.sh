@@ -26,7 +26,7 @@ sleep 1  # Wait for 1 seconds
 
 # Start Tailscale daemon
 sudo tailscaled --state=/var/lib/tailscale/tailscaled.state &
-sleep 1  # Wait for 1 seconds
+sleep 5  # Wait for 5 seconds
 
 # Install Netbird
 curl -fsSL https://pkgs.netbird.io/install.sh | sh
@@ -34,7 +34,7 @@ sleep 1  # Wait for 1 seconds
 
 # Bring up Tailscale
 sudo tailscale up
-sleep 3  # Wait for 3 seconds
+sleep 6  # Wait for 6 seconds
 
 # Bring up Netbird
 sudo netbird up
