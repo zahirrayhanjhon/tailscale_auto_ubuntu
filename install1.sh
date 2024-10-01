@@ -48,8 +48,7 @@ echo -e "${GREEN}✅ Tailscale installed successfully!${NC}"
 
 # Start Tailscale daemon
 echo -e "${BLUE}🔄 Starting Tailscale daemon...${NC}"
-# sudo tailscaled --state=/var/lib/tailscale/tailscaled.state &
-echo -e "[Unit]\nDescription=Tailscale Daemon\nAfter=network.target\n\n[Service]\nExecStart=/usr/sbin/tailscaled --state=/var/lib/tailscale/tailscaled.state\nRestart=on-failure\n\n[Install]\nWantedBy=multi-user.target" | sudo tee /etc/systemd/system/tailscale.service && sudo systemctl enable tailscale.service && sudo systemctl start tailscale.service
+sudo tailscaled --state=/var/lib/tailscale/tailscaled.state &
 sleep 5  # Wait for 5 seconds
 echo -e "${GREEN}✅ Tailscale daemon started!${NC}"
 
